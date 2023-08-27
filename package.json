@@ -1,11 +1,12 @@
 {
-  "name": "google-docs",
+  "name": "nose-google-docs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "npm run build && cd ./dist && npm publish --access public"
   },
   "keywords": [],
   "author": "",

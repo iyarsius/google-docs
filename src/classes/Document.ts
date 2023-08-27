@@ -61,10 +61,6 @@ export class Document {
 
         this.docID = doc.data.documentId;
 
-        for (const req of this.requests) {
-            console.log(req);
-        }
-
         return this.client.documents.batchUpdate({
             documentId: this.docID,
             requestBody: {

@@ -23,7 +23,7 @@ export class Table {
 
         const headerCharsSize = headers.reduce((acc, header) => acc + header.length, 0);
         const rowsCharsSize = rows.reduce((acc, row) => acc + Object.values(row).reduce((acc, value) => acc + value.length, 0), 0);
-        const tableSize = 4 + 2 * headers.length * (rows.length + 1)
+        const tableSize = 4 + 2 * headers.length * (rows.length + 1) + (rows.length - 1);
 
         this.size = headerCharsSize + rowsCharsSize + tableSize;
     };
@@ -44,9 +44,10 @@ export class Table {
         if (this.options?.columnsProperties) {
             requests.push(...this.options.columnsProperties.map((prop) => ({
                 updateTableColumnProperties: {
-                    tableStartLocation: { index: this.index },
+                    tableStartLocation: { index: this.index + 1 },
                     columnIndices: [prop.columnID],
-                    tableColumnProperties: prop.properties
+                    tableColumnProperties: prop.properties,
+                    fields: Object.keys(prop.properties || {}).join(",")
                 }
             })));
         };
@@ -54,9 +55,9 @@ export class Table {
         if (this.options?.tableCellStyle) {
             requests.push({
                 updateTableCellStyle: {
-                    tableStartLocation: { index: this.index },
+                    tableStartLocation: { index: this.index + 1 },
                     tableCellStyle: this.options.tableCellStyle,
-                    fields: "*"
+                    fields: Object.keys(this.options.tableCellStyle).join(",")
                 }
             });
         };

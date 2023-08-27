@@ -6,6 +6,6 @@ export interface IColomnProperties {
 };
 
 export interface ITableOptions {
-    columnsProperties: IColomnProperties[];
+    columnsProperties?: IColomnProperties[];
     tableCellStyle?: docs_v1.Schema$TableCellStyle;
 }
